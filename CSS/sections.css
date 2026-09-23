@@ -1,0 +1,112 @@
+/* ============ SECTIONS: recommendations, listings, buyability, promo cards ============ */
+.reco{background:var(--bg);padding:28px 0}
+.reco-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 24px}
+.reco-inner h2{font-size:22px}
+.reco-inner p{
+    color:var(--muted);
+    margin:4px 0 12px}
+.reco-inner img{
+    width:280px;
+    height:120px;
+    object-fit:cover;
+    border-radius:10px}
+.btn-outline{
+    border:1px solid var(--blue);
+    color:var(--blue);
+    background:#fff;
+    padding:9px 22px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer}
+.btn-primary{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:11px 22px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer}
+.btn-primary:hover{
+    background:var(--blue-dark)}
+.full{
+    width:100%;
+    margin-top:10px}
+/* LISTINGS */
+.listings-section{
+    padding:40px 0}
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:16px;
+    margin-bottom:18px;
+    flex-wrap:wrap}
+.section-head h2{
+    font-size:28px;
+    letter-spacing:-.5px}
+.muted{
+    color:var(--muted)}
+.filters{display:flex;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:600;font-size:14px}
+.chip.active{background:#111;color:#fff;border-color:#111}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;transition:.15s}
+.card:hover{box-shadow:0 10px 30px rgba(0,0,0,.12);transform:translateY(-2px)}
+.card-img{position:relative;height:210px;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.fav{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+.fav.loved{color:#e11d48}
+/* Signed-out state: the heart is shown but not enabled */
+.fav.locked{color:#9aa3b2;opacity:.75;cursor:not-allowed}
+.fav.locked:hover,.fav.locked:focus-visible{color:#6b7280;opacity:1}
+.card-body{padding:14px 16px}
+.price{font-size:22px;font-weight:800}
+.specs{font-size:14px;color:#333;margin:4px 0}
+.addr{font-size:14px;color:var(--muted)}
+/* BUYABILITY */
+.buyability{background:#0B0B45;color:#fff;padding:56px 0}
+.buyability-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.buyability h2{font-size:36px;letter-spacing:-.5px}
+.buyability p{color:#C9C9E5;margin:10px 0 16px}
+.checklist{list-style:none;margin-bottom:20px;color:#E6E6FF;display:grid;gap:8px}
+.calc-card{background:#fff;color:var(--ink);border-radius:14px;padding:18px}
+.calc-card h3{margin-bottom:12px}
+.calc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.calc-row label{font-size:12px;font-weight:700;display:grid;gap:6px}
+.calc-row input{padding:10px;border:1px solid var(--line);border-radius:8px;width:100%}
+.calc-result{font-size:22px;font-weight:800;margin:14px 0 6px}.calc-result span{font-size:32px}
+.calc-card input[type=range]{width:100%}
+.buyability-art{position:relative}
+.buyability-art img{width:100%;height:420px;object-fit:cover;border-radius:16px}
+.float-card{position:absolute;left:16px;bottom:16px;background:#fff;color:#111;border-radius:12px;padding:12px 16px;display:grid}.float-card span{color:var(--muted);font-size:13px}
+/* TRIO */
+.trio{padding:48px 0;background:var(--bg)}
+.trio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.trio-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;padding-bottom:18px}
+.trio-card img{width:100%;height:200px;object-fit:cover}
+.trio-card h3,.trio-card p,.trio-card a{padding:0 18px}.trio-card h3{margin:14px 0 6px}.trio-card p{color:var(--muted);font-size:15px;margin-bottom:10px}.trio-card a{color:var(--blue-dark);font-weight:700}
+/* APP */
+.app-banner{padding:56px 0}
+.app-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.app-inner h2{font-size:34px;margin-bottom:8px}.app-inner p{color:var(--muted);margin-bottom:16px}
+.app-inner img{width:100%;height:340px;object-fit:cover;border-radius:16px}
+.qr-row{display:flex;gap:14px;align-items:center}
+.qr{width:84px;height:84px;border:2px solid #111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;text-align:center;font-size:13px}
+/* VALUE / RATES (shared widgets) */
+.value-row{display:flex;gap:8px;padding:0 18px;margin-bottom:8px}.value-row input{flex:1;border:1px solid var(--line);border-radius:8px;padding:10px}.value-out{padding:0 18px;margin-bottom:10px;font-size:14px}
+.rates-box{display:grid;gap:8px;margin-top:12px;background:#f3f6ff;border-radius:10px;padding:12px}.rates-box div{display:flex;justify-content:space-between;font-size:14px}
+.calc-card.flash{box-shadow:0 0 0 3px rgba(0,106,255,.4)}
+.tiny{font-size:12px;color:var(--muted);margin-top:12px}
+.hide-md{}

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanNest: Real Estate, Apartments, Mortgages & Home Values</title>
+    <meta name="description" content="UrbanNest - Buy, rent, sell homes, get mortgage estimates and find agents.">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/png" href="image/zillow-seeklogo.png">
+</head>
+<body>
+<header class="header">
+    <!-- LEFT NAV -->
+    <nav class="left-nav" aria-label="Primary">
+        <div class="nav-menu" data-menu>
+            <a href="page/buy.html" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Buy</a>
+            <div class="buy-dropdown dropdown-panel">
+                <div class="buy-column">
+                    <h3>Homes for sale</h3>
+                    <div class="buy-links">
+                        <a href="page/buy.html?view=homes-for-sale">Homes for sale</a>
+                        <a href="page/buy.html?view=new-construction">New construction</a>
+                        <a href="page/buy.html?view=foreclosures">Foreclosures</a>
+                        <a href="page/buy.html?view=coming-soon">Coming soon</a>
+                        <a href="page/buy.html?view=fsbo">For sale by owner</a>
+                        <a href="page/buy.html?view=recent-sales">Recent home sales</a>
+                        <a href="page/buy.html?view=open-houses">Open houses</a>
+                        <a href="page/buy.html?view=all-homes">All homes</a>
+                    </div>
+                </div>
+                <div class="buy-divider"></div>
+                <div class="buy-resources">
+                    <h3>Resources</h3>
+                    <a href="page/buy.html?view=guide">Home Buying Guide</a>
+                    <a href="page/buy.html?view=foreclosure-center">Foreclosure center</a>
+                    <a href="page/buy.html?view=app">Real estate app</a>
+                    <a href="page/buy.html?view=down-payment">Down payment assistance</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-menu" data-menu>
+            <a href="page/rent.html" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Rent</a>
+            <div class="rent-dropdown dropdown-panel">
+                <div class="rent-listings">
+                    <h3>Rental listings</h3>
+                    <a href="page/rent.html?view=apartments">Search apartments for rent</a>
+                    <a href="page/rent.html?view=houses">Search houses for rent</a>
+                    <a href="page/rent.html?view=all">Search all rental listings</a>
+                    <a href="page/rent.html?view=buildings">Browse all rental buildings</a>
+                </div>
+                <div class="rent-divider"></div>
+                <div class="rent-tools">
+                    <h3>Tools for renters</h3>
+                    <div class="rent-links">
+                        <a href="page/rent.html?view=afford">Estimate what you can afford</a>
+                        <a href="page/rent.html?view=credit">Build your credit</a>
+                        <a href="page/rent.html?view=applications">See your applications</a>
+                        <a href="page/rent.html?view=insurance">Get renters insurance</a>
+                        <a href="page/rent.html?view=tours">Manage your tours</a>
+                        <a href="page/rent.html?view=vouchers">Explore housing voucher programs</a>
+                        <a href="page/rent.html?view=pay-rent">Pay your rent</a>
+                        <a href="page/rent.html?view=learn">Learn more about renting</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-menu" data-menu>
+            <a href="page/sell.html" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Sell</a>
+            <div class="sell-dropdown dropdown-panel">
+                <div class="sell-column">
+                    <h3>Selling options</h3>
+                    <div class="sell-links">
+                        <a href="page/sell.html?view=sell">Sell your home</a>
+                        <a href="page/sell.html?view=value">See your home value</a>
+                        <a href="page/sell.html?view=guide">Seller's guide</a>
+                        <a href="page/agents.html?view=agents">Find a seller's agent</a>
+                    </div>
+                </div>
+                <div class="sell-divider"></div>
+                <div class="sell-resources">
+                    <h3>Resources</h3>
+                    <a href="page/sell.html?view=worth">What's your home worth?</a>
+                    <a href="page/sell.html?view=guide">Seller's guide</a>
+                    <a href="page/sell.html?view=app">Real estate app</a>
+                    <a href="page/sell.html?view=improve">Home improvement</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-menu mortgage-menu" data-menu>
+            <a href="page/mortgage.html" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Home Loans</a>
+            <div class="mortgage-dropdown dropdown-panel">
+                <div class="mortgage-column loan-column">
+                    <h3>Started a loan application?</h3>
+                    <p>Pick up where you left off on your UrbanNest Home Loans dashboard.</p>
+                    <a href="page/mortgage.html?view=dashboard">Home loans dashboard</a>
+                </div>
+                <div class="mortgage-divider"></div>
+                <div class="mortgage-column">
+                    <h3>Your mortgage</h3>
+                    <a href="page/mortgage.html?view=discover">Discover UrbanNest Home Loans</a>
+                    <a href="page/mortgage.html?view=buyability">Calculate your BuyAbility</a>
+                    <a href="page/mortgage.html?view=prequal">Get pre-qualified</a>
+                </div>
+                <div class="mortgage-divider"></div>
+                <div class="mortgage-column mortgage-tools">
+                    <h3>Mortgage tools</h3>
+                    <a href="page/mortgage.html?view=payment">Estimate your mortgage payment</a>
+                    <a href="page/mortgage.html?view=rates">See current mortgage rates</a>
+                    <a href="page/mortgage.html?view=learn">Learn about financing a home</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-menu agent-menu" data-menu>
+            <a href="page/agents.html" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Find an agent</a>
+            <div class="agent-dropdown dropdown-panel">
+                <div class="agent-looking">
+                    <h3>Looking for pros?</h3>
+                    <a href="page/agents.html?view=agents">Real estate agents</a>
+                    <a href="page/agents.html?view=builders">Home builders</a>
+                </div>
+                <div class="agent-divider"></div>
+                <div class="agent-pro">
+                    <h3>I'm a pro</h3>
+                    <div class="agent-links">
+                        <a href="page/agents.html?view=solutions">Agent solutions</a>
+                        <a href="page/agents.html?view=plan">Real estate business plan</a>
+                        <a href="page/agents.html?view=advertising">Agent advertising</a>
+                        <a href="page/agents.html?view=scripts">Real estate agent scripts</a>
+                        <a href="page/agents.html?view=resources">Agent resource center</a>
+                        <a href="page/agents.html?view=flyers">Listing flyer templates</a>
+                        <a href="page/agents.html?view=join">Create a free agent account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LOGO -->
+    <a href="#" class="logo" aria-label="UrbanNest home" data-action="goto" data-target="top">
+        <span class="logo-symbol">U</span>
+        <span class="logo-text">Urban<em>Nest</em></span>
+    </a>
+
+    <!-- RIGHT NAV -->
+    <nav class="right-nav" aria-label="Secondary">
+        <div class="nav-menu manage-menu" data-menu>
+            <a href="#" class="nav-top-link" aria-haspopup="true" aria-expanded="false">Manage rentals</a>
+            <div class="manage-dropdown dropdown-panel">
+                <div class="management-tasks">
+                    <h3>Management tasks</h3>
+                    <a href="page/manage-rentals.html?view=list">List your property for rent</a>
+                    <a href="page/manage-rentals.html?view=properties">View your properties</a>
+                    <a href="page/manage-rentals.html?view=messages">Read your messages</a>
+                </div>
+                <div class="manage-divider"></div>
+                <div class="rental-manager-tools">
+                    <h3>Tools for rental managers</h3>
+                    <div class="manager-links">
+                        <a href="page/manage-rentals.html?view=value">Check your property's rental value</a>
+                        <a href="page/manage-rentals.html?view=learn">Learn about renting out your property</a>
+                        <a href="page/manage-rentals.html?view=screen">Screen renters with applications</a>
+                        <a href="page/manage-rentals.html?view=help">Search help center</a>
+                        <a href="page/manage-rentals.html?view=leases">Create and manage leases</a>
+                        <a href="page/manage-rentals.html?view=explore">Explore UrbanNest Rental Manager</a>
+                        <a href="page/manage-rentals.html?view=collect">Collect rent</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="hide-md" data-action="toast" data-toast="Advertising with UrbanNest — demo">Advertise</a>
+        <a href="#" class="hide-md" data-action="toast" data-toast="Help center — demo">Help</a>
+        <div class="bell-wrap">
+            <button class="bell" id="bell" type="button" aria-label="Price alerts">🔔<span class="bell-count" id="bellCount" hidden>0</span></button>
+            <div class="alert-panel" id="alertPanel">
+                <div class="alert-head">
+                    <strong>Price alerts</strong>
+                    <button type="button" id="alertClear">Clear all</button>
+                </div>
+                <div id="alertList"></div>
+            </div>
+        </div>
+        <div class="user-area">
+            <button id="sign" type="button">Sign in</button>
+            <div class="user-menu" id="userMenu">
+                <div class="user-head"><span class="avatar" id="avatar">U</span><div><strong id="userName">User</strong><small id="userEmail">user@mail.com</small></div></div>
+                <a href="#listings" data-action="filter" data-filter="all">Saved homes (<span id="favCount">0</span>)</a>
+                <a href="#" data-action="toast" data-toast="My tours — demo">My tours</a>
+                <button id="signOut" type="button">Sign out</button>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </nav>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="page/buy.html">Buy</a>
+    <a href="page/rent.html">Rent</a>
+    <a href="page/sell.html">Sell</a>
+    <a href="page/mortgage.html">Home Loans</a>
+    <a href="page/agents.html">Find an agent</a>
+    <a href="page/manage-rentals.html">Manage rentals</a>
+    <a href="page/manage-rentals.html?view=help">Advertise</a>
+    <button class="btn-primary" type="button" data-action="auth">Sign in</button>
+</div>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Agents. Tours.<br>Loans. Homes.</h1>
+            <div class="search-card">
+                <div class="search-tabs" role="tablist">
+                    <button class="search-tab active" data-tab="buy" role="tab">Buy</button>
+                    <button class="search-tab" data-tab="rent" role="tab">Rent</button>
+                    <button class="search-tab" data-tab="sell" role="tab">Sell</button>
+                    <button class="search-tab" data-tab="loans" role="tab">Home Loans</button>
+                    <button class="search-tab" data-tab="agent" role="tab">Agent finder</button>
+                </div>
+                <div class="search-bar">
+                    <input id="searchInput" type="text" placeholder="City, neighborhood, ZIP, address..." aria-label="Search location">
+                    <button id="searchBtn" aria-label="Search">⌕</button>
+                </div>
+                <p class="search-hint" id="searchHint">Try “Austin TX”, “90210”, or “123 Main St” — 1.2M homes for sale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECOMMENDATIONS STRIP -->
+    <section class="reco">
+        <div class="reco-inner">
+            <div>
+                <h2 id="recoTitle">Get home recommendations</h2>
+                <p id="recoText">Sign in for a more personalized experience.</p>
+                <div class="reco-actions">
+                    <button class="btn-primary" type="button" id="lifeBtn">🧭 Lifestyle Match</button>
+                    <button class="btn-outline" type="button" id="recoAction">Sign in</button>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&auto=format&fit=crop" alt="House keys handover">
+        </div>
+    </section>
+
+    <!-- LISTINGS -->
+    <section class="listings-section" id="listings">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <h2>Homes For You</h2>
+                    <p class="muted">Based on homes you recently viewed in Austin, TX</p>
+                </div>
+                <div class="filters">
+                    <button class="chip active" data-filter="all">All</button>
+                    <button class="chip" data-filter="sale">For sale</button>
+                    <button class="chip" data-filter="rent">For rent</button>
+                    <button class="chip" data-filter="new">New</button>
+                </div>
+            </div>
+            <div class="cards" id="cards"></div>
+        </div>
+    </section>
+
+    <!-- BUYABILITY -->
+    <section class="buyability" id="mortgage">
+        <div class="container buyability-grid">
+            <div>
+                <h2>Find your BuyAbility<sup>SM</sup></h2>
+                <p>See what you can afford, get pre-qualified, and track your buying power in one place.</p>
+                <ul class="checklist">
+                    <li>✓ Affordability calculator with taxes & fees</li>
+                    <li>✓ Live mortgage rates — 30-yr fixed from 6.2%</li>
+                    <li>✓ Pre-qualification in ~3 minutes</li>
+                </ul>
+                <div class="calc-card" id="calcCard">
+                    <h3>Estimate your payment</h3>
+                    <div class="calc-row">
+                        <label>Home price<input id="calcPrice" type="number" value="450000"></label>
+                        <label>Down %<input id="calcDown" type="number" value="20"></label>
+                        <label>Rate %<input id="calcRate" type="number" step="0.01" value="6.5"></label>
+                        <label>Years<input id="calcYears" type="number" value="30"></label>
+                    </div>
+                    <div class="calc-result"><span id="calcOut">$1,899</span>/mo</div>
+                    <input id="calcRange" type="range" min="100000" max="1500000" step="10000" value="450000">
+                    <div id="ratesBox" class="rates-box" hidden>
+                        <div><strong>30-yr fixed</strong><span>6.20% APR</span></div>
+                        <div><strong>15-yr fixed</strong><span>5.55% APR</span></div>
+                        <div><strong>5-yr ARM</strong><span>5.91% APR</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="buyability-art">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80&auto=format&fit=crop" alt="Modern home exterior">
+                <div class="float-card"><strong>$2,275/mo</strong><span>Est. payment · 4bd · Austin</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THREE COLUMNS -->
+    <section class="trio">
+        <div class="container trio-grid">
+            <article class="trio-card" id="sell">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop" alt="Sell">
+                <h3>Sell your home</h3>
+                <p>See what your home could sell for, list with a partner agent, and track your sale.</p>
+                <div class="value-row">
+                    <input id="valueInput" type="text" placeholder="Enter your address">
+                    <button class="btn-primary" type="button" id="valueBtn">Estimate</button>
+                </div>
+                <p class="value-out muted" id="valueOut">Free NestEstimate™ in seconds.</p>
+                <a href="#" data-action="value">See your options →</a>
+            </article>
+            <article class="trio-card" id="rent">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=80&auto=format&fit=crop" alt="Rent">
+                <h3>Rent a home</h3>
+                <p>Search apartments, houses, and rentals with verified listings and 3D tours.</p>
+                <a href="#listings" data-action="filter" data-filter="rent">Find rentals →</a>
+            </article>
+            <article class="trio-card" id="agents">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=700&q=80&auto=format&fit=crop" alt="Agent">
+                <h3>Find an agent</h3>
+                <p>Top-rated local agents with 4.8★ average across 2.1M reviews.</p>
+                <a href="#" data-action="toast" data-toast="Agent match: 3 top agents in Austin contacted">Meet agents →</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- APP BANNER -->
+    <section class="app-banner">
+        <div class="container app-inner">
+            <div>
+                <h2>UrbanNest app? Game on.</h2>
+                <p>Tour homes from your couch. Scan to download, or search “UrbanNest” in the App Store.</p>
+                <div class="qr-row">
+                    <div class="qr">URBAN<br>NEST</div>
+                    <button class="btn-primary" type="button" data-action="app">Get the app</button>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80&auto=format&fit=crop" alt="Luxury home with pool">
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-grid">
+        <div class="footer-col">
+            <h4>About</h4>
+            <a href="#" data-action="toast" data-toast="About UrbanNest — demo">About UrbanNest</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Investors</a>
+        </div>
+        <div class="footer-col">
+            <h4>Buy & Sell</h4>
+            <a href="#listings" data-action="filter" data-filter="sale">Homes for sale</a><a href="#sell" data-action="goto" data-target="#sell">Sell your home</a><a href="#">New construction</a><a href="#">Recently sold</a>
+        </div>
+        <div class="footer-col">
+            <h4>Rent</h4>
+            <a href="#rent" data-action="filter" data-filter="rent">Apartments for rent</a><a href="#">Houses for rent</a><a href="#">Rental manager</a><a href="#">Renter resources</a>
+        </div>
+        <div class="footer-col">
+            <h4>Mortgages</h4>
+            <a href="#mortgage" data-action="goto" data-target="#mortgage">Home loans</a><a href="#mortgage" data-action="rates">Mortgage rates</a><a href="#mortgage" data-action="afford">Affordability calculator</a><a href="#mortgage" data-action="prequal">Pre-qualify</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© 2026 UrbanNest — demo project. Listings and photos are placeholders (Unsplash).</p>
+        <div class="social">Follow: X · Facebook · Instagram · TikTok</div>
+    </div>
+</footer>
+
+<!-- Lifestyle Match quiz -->
+<div class="modal" id="quizModal" aria-hidden="true">
+    <div class="modal-card quiz-card">
+        <button class="modal-x" id="quizClose">✕</button>
+        <div class="brand-mini"><span class="logo-symbol">U</span><strong>Lifestyle Match</strong></div>
+        <h2>Find homes that fit your life</h2>
+        <p class="muted">4 quick questions — every home gets a match score.</p>
+
+        <div class="q-block">
+            <label class="q-label">1. Budget up to <b id="qBudgetOut">$650,000</b></label>
+            <input id="qBudget" type="range" min="150000" max="1200000" step="25000" value="650000">
+        </div>
+
+        <div class="q-block">
+            <label class="q-label">2. Bedrooms</label>
+            <div class="stepper">
+                <button type="button" id="bedsMinus">−</button>
+                <b id="qBeds">3</b>
+                <button type="button" id="bedsPlus">+</button>
+            </div>
+        </div>
+
+        <div class="q-block">
+            <label class="q-label">3. What matters to you? <span class="muted">(pick any)</span></label>
+            <div class="pick-grid" id="wantGrid"></div>
+        </div>
+
+        <div class="q-block">
+            <label class="q-label">4. Your life stage</label>
+            <div class="stage-row">
+                <button type="button" class="stage" data-stage="starter">🎓 First home</button>
+                <button type="button" class="stage" data-stage="family">👨‍👩‍👧 Family</button>
+                <button type="button" class="stage" data-stage="remote">💻 Remote work</button>
+                <button type="button" class="stage sel" data-stage="any">✨ Just browsing</button>
+            </div>
+        </div>
+
+        <div class="quiz-actions">
+            <button class="btn-outline" type="button" id="quizReset">Clear</button>
+            <button class="btn-primary" type="button" id="quizSave">Match my homes →</button>
+        </div>
+        <p class="tiny">Scores update instantly on every listing card. Stored locally in your browser.</p>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Sign-in / Create-account modal : two separate forms -->
+<div class="modal" id="signModal" aria-hidden="true">
+    <div class="modal-card">
+        <button class="modal-x" id="modalClose">✕</button>
+        <div class="brand-mini"><span class="logo-symbol">U</span><strong>UrbanNest</strong></div>
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabSignin" type="button">Sign in</button>
+            <button class="auth-tab" id="tabSignup" type="button">Create account</button>
+        </div>
+
+        <!-- SIGN IN : separate form -->
+        <div id="signinView">
+            <h2>Welcome back</h2>
+            <p class="muted">Sign in to save homes and get recommendations.</p>
+            <form id="signinForm" novalidate>
+                <label class="fld">Email<input id="signinEmail" type="email" placeholder="you@email.com" autocomplete="email"></label>
+                <label class="fld">Password
+                    <span class="pw-wrap"><input id="signinPass" type="password" placeholder="••••••••" autocomplete="current-password"><button type="button" id="pwToggleIn">Show</button></span>
+                </label>
+                <p class="err" id="signinErr" hidden></p>
+                <div class="auth-row"><label class="remember"><input type="checkbox" id="authRemember" checked> Keep me signed in</label><a href="#" id="forgotLink">Forgot password?</a></div>
+                <button class="btn-primary full" type="submit">Sign in</button>
+            </form>
+        </div>
+
+        <!-- CREATE ACCOUNT : separate form -->
+        <div id="signupView" hidden>
+            <h2>Create your account</h2>
+            <p class="muted">Save homes, track values, get pre-qualified.</p>
+            <form id="signupForm" novalidate>
+                <label class="fld">Full name<input id="signupName" type="text" placeholder="Alex Morgan" autocomplete="name"></label>
+                <label class="fld">Email<input id="signupEmail" type="email" placeholder="you@email.com" autocomplete="email"></label>
+                <label class="fld">Create password
+                    <span class="pw-wrap"><input id="signupPass" type="password" placeholder="Min. 8 characters" autocomplete="new-password"><button type="button" id="pwToggleUp">Show</button></span>
+                </label>
+                <label class="fld">Confirm password<input id="signupPass2" type="password" placeholder="Repeat password" autocomplete="new-password"></label>
+                <p class="err" id="signupErr" hidden></p>
+                <label class="remember"><input type="checkbox" id="signupTerms"> I agree to the <a href="#">Terms</a> & <a href="#">Privacy</a></label>
+                <button class="btn-primary full" type="submit">Create account</button>
+            </form>
+        </div>
+
+        <div class="or"><span>or</span></div>
+        <div class="social-btns">
+            <button type="button" data-social="Google">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.3h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7 2.5.3c1.6-1.5 2.5-3.6 2.5-6.2v-2.7z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.1 0-5.8-2.1-6.8-5l-3.9 3.1-.1.1C3.2 21.3 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-.1-.1-3.8-3C.5 8.2 0 10 0 12s.5 3.8 1.3 5.5l3.9-3.1z"/><path fill="#EA4335" d="M12 4.6c1.8 0 3 .8 3.7 1.4l3.3-3.2C17 1 14.9 0 12 0 7.3 0 3.2 2.7 1.3 6.5l3.9 3.1c1-2.9 3.7-5 6.8-5z"/></svg>
+                Continue with Google
+            </button>
+            <button type="button" data-social="Apple">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.05 2.87.75 3.69 1.9-3.35 2.01-2.79 6.36.49 7.62-.57 1.48-1.32 2.95-2.83 3.49zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                Continue with Apple
+            </button>
+        </div>
+        <p class="tiny">Demo auth only — stored in your browser localStorage. No data is sent.</p>
+    </div>
+</div>
+
+<script src="asset/js/app.js"></script>
+</body>
+</html>

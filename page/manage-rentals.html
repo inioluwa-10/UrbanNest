@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Rentals | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>.hero{background:#3A0B2E;color:#fff;padding:56px 24px;text-align:center}.body{max-width:900px;margin:0 auto;padding:32px 24px}.card{background:#fff;border:1px solid #E0E1E7;border-radius:14px;padding:20px;margin-top:16px}.topbar{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #eee}.topbar a{font-weight:700;color:#006AFF}</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← Home</a><nav style="display:flex;gap:14px"><a href="rent.html">Rent</a><a href="manage-rentals.html">Manage</a></nav></div>
+<section class="hero"><h1 id="title">Rental Manager</h1><p>List, screen, lease & collect — free for first unit</p></section>
+<div class="body"><div id="desc" class="card"></div>
+<div class="card"><h3>What you can do here</h3><ul><li>List your property for rent</li><li>Screen renters with applications + credit/background</li><li>Create and manage leases online</li><li>Collect rent with autopay</li><li>Check rental value, messages and help center</li></ul><button onclick="alert('Sign in to use Rental Manager (demo)')" style="background:#006AFF;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;margin-top:10px">Get started</button></div>
+<p><a href="../index.html" style="color:#006AFF;font-weight:700">← Back home</a></p></div>
+<script>
+const m={"list":{t:"List your property",d:"Create a listing in 10 min — photos, rent, screening criteria."},"properties":{t:"Your properties",d:"Sign in to see vacancies, leases and maintenance. (Demo)"},"messages":{t:"Your messages",d:"Renter inquiries and tour requests live here."},"value":{t:"Rental value",d:"Estimated rent based on comps within 2 miles."},"learn":{t:"Renting out your property",d:"Landlord guide: pricing, screening, leases, Texas law."},"screen":{t:"Screen renters",d:"Application + credit + background + eviction history."},"help":{t:"Help center",d:"FAQs and support for managers and renters."},"leases":{t:"Create leases",d:"State-compliant e-lease builder with e-sign."},"explore":{t:"Explore Rental Manager",d:"Tour the full toolkit for independent landlords."},"collect":{t:"Collect rent",d:"ACH free, card 2.9%. Autopay + reminders."}};
+const v=new URLSearchParams(location.search).get("view")||"explore";const o=m[v]||{t:"Rental Manager",d:"All management tools in one dashboard."};
+document.getElementById("title").textContent=o.t;document.getElementById("desc").textContent=o.d;
+</script>
+</body>
+</html>

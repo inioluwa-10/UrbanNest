@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find an Agent | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>.hero{background:#102542;color:#fff;padding:56px 24px;text-align:center}.body{max-width:1000px;margin:0 auto;padding:32px 24px}.card{background:#fff;border:1px solid #E0E1E7;border-radius:14px;padding:20px;margin-top:16px}.topbar{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #eee}.topbar a{font-weight:700;color:#006AFF}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}.a{background:#fff;border:1px solid #E0E1E7;border-radius:12px;padding:16px;text-align:center}@media(max-width:800px){.grid{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← Home</a><nav style="display:flex;gap:14px"><a href="buy.html">Buy</a><a href="sell.html">Sell</a><a href="agents.html">Agents</a></nav></div>
+<section class="hero"><h1 id="title">Find an agent</h1><p>2,340 top-rated agents in Austin · avg 4.8★</p></section>
+<div class="body"><div id="desc" class="card"></div><div class="grid"><div class="a"><h3>Sarah Kim</h3><p>4.9★ · 86 sales · Austin</p><button onclick="alert('Contact request sent to Sarah Kim')" style="background:#006AFF;color:#fff;border:none;padding:8px 16px;border-radius:8px">Contact</button></div><div class="a"><h3>Marcus Lee</h3><p>4.8★ · 64 sales · Round Rock</p><button onclick="alert('Contact request sent to Marcus Lee')" style="background:#006AFF;color:#fff;border:none;padding:8px 16px;border-radius:8px">Contact</button></div><div class="a"><h3>Priya Patel</h3><p>5.0★ · 112 sales · West Lake</p><button onclick="alert('Contact request sent to Priya Patel')" style="background:#006AFF;color:#fff;border:none;padding:8px 16px;border-radius:8px">Contact</button></div></div><p style="margin-top:20px"><a href="../index.html#agents" style="color:#006AFF;font-weight:700">← Back to agents section</a></p></div>
+<script>
+const m={"agents":{t:"Real estate agents",d:"Compare local buyer & seller agents by rating, sales and response time."},"builders":{t:"Home builders",d:"12 builder communities in Austin — models from $389k."},"solutions":{t:"Agent solutions",d:"For pros: CRM, leads, listings and marketing suite. (Demo)"},"plan":{t:"Real estate business plan",d:"Template: goals, lead sources, budget and 90-day actions."},"advertising":{t:"Agent advertising",d:"Premier placements, zip targeting and ROI stats."},"scripts":{t:"Agent scripts",d:"Buyer consult, listing presentation, open house and follow-up scripts."},"resources":{t:"Agent resource center",d:"Guides, webinars and market reports for pros."},"flyers":{t:"Listing flyer templates",d:"Printable + digital flyers. (Demo)"},"join":{t:"Create a free agent account",d:"Sign up as a pro to claim your profile and get leads."}};
+const v=new URLSearchParams(location.search).get("view")||"agents";const o=m[v]||m.agents;
+document.getElementById("title").textContent=o.t;document.getElementById("desc").textContent=o.d;
+</script>
+</body>
+</html>

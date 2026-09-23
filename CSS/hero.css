@@ -1,0 +1,59 @@
+/* ============ HERO: background, headline, search card ============ */
+.hero{
+    background:linear-gradient(rgba(0,20,60,.25),rgba(0,20,60,.35)),
+    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80&auto=format&fit=crop') center/cover;
+    min-height:560px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px}
+.hero-inner{
+    width:100%;
+    max-width:760px;
+    text-align:center}
+.hero h1{
+    color:#fff;
+    font-size:56px;
+    line-height:1.05;
+    font-weight:800;
+    letter-spacing:-1px;
+    margin-bottom:22px;
+    text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.search-card{
+    background:#fff;
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    text-align:left}
+.search-tabs{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:12px}
+.search-tab{
+    border:none;
+    background:transparent;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:15px;
+    color:var(--muted);
+    cursor:pointer}
+.search-tab.active{
+    background:#E8F0FE;
+    color:var(--blue-dark)}
+.search-bar{
+    display:flex;
+    gap:8px}
+.search-bar input{
+    flex:1;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:16px;
+    outline:none}
+.search-bar input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(0,106,255,.15)}
+.search-bar button{width:56px;border:none;border-radius:8px;background:var(--blue);color:#fff;font-size:22px;cursor:pointer}
+.search-hint{font-size:13px;color:var(--muted);margin:10px 4px 2px}

@@ -1,0 +1,28 @@
+/* ============ COMPONENTS: modal, auth forms, toast ============ */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal.open{display:flex}
+.modal-card{background:#fff;border-radius:16px;padding:28px;width:100%;max-width:400px;position:relative;margin:auto}
+.modal-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;margin-top:14px}
+.modal-x{position:absolute;top:12px;right:12px;border:none;background:#f2f2f2;width:32px;height:32px;border-radius:50%;cursor:pointer}
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:700;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Auth */
+.brand-mini{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:18px}
+.auth-tabs{display:flex;background:#f1f3f8;border-radius:10px;padding:4px;margin-bottom:14px}
+.auth-tab{flex:1;border:none;background:transparent;padding:10px;border-radius:8px;font-weight:700;cursor:pointer;color:var(--muted)}
+.auth-tab.active{background:#fff;color:#111;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.fld{display:grid;gap:6px;font-size:13px;font-weight:700;margin-top:12px}
+.fld input{font-weight:400}
+.pw-wrap{display:flex;gap:6px}.pw-wrap input{flex:1}.pw-wrap button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 12px;cursor:pointer}
+.err{color:#c81e1e;font-size:13px;margin-top:10px;background:#fdecec;padding:8px 10px;border-radius:8px}
+.remember{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin:12px 0}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;margin:14px 0}.or:before,.or:after{content:"";flex:1;height:1px;background:#eee}
+.social-btns{display:grid;gap:8px}.social-btns button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px}
+.social-btns button:hover{background:#f7f7f7}
+.social-btns button svg{flex-shrink:0}
+.auth-row{display:flex;align-items:center;justify-content:space-between;margin:12px 0}
+.auth-row .remember{margin:0}
+.auth-row a{font-size:13px;color:var(--blue-dark);font-weight:600}
+#signinView h2,#signupView h2{font-size:22px;margin-bottom:4px}
+.remember a{color:var(--blue-dark)}

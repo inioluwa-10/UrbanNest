@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy a Home | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>.page-hero{background:#0B0B45;color:#fff;padding:56px 24px;text-align:center}.page-hero h1{font-size:40px}.page-hero p{color:#C9C9E5}.page-body{max-width:1100px;margin:0 auto;padding:32px 24px}.grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}.mini{background:#fff;border:1px solid #E0E1E7;border-radius:12px;overflow:hidden}.mini img{width:100%;height:170px;object-fit:cover}.mini div{padding:12px 14px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #E0E1E7}.topbar a{font-weight:700;color:#006AFF}@media(max-width:800px){.grid2{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← UrbanNest Home</a><nav style="display:flex;gap:16px"><a href="buy.html">Buy</a><a href="rent.html">Rent</a><a href="sell.html">Sell</a><a href="mortgage.html">Home Loans</a><a href="agents.html">Agents</a></nav></div>
+<section class="page-hero"><h1 id="title">Homes for sale</h1><p id="sub">1.2M homes for sale · Updated daily · Austin, TX</p></section>
+<div class="page-body">
+<div id="desc" style="background:#F3F6FF;padding:16px 18px;border-radius:12px"></div>
+<div class="grid2" id="grid"></div>
+<p style="margin-top:24px"><a href="../index.html#listings" style="color:#006AFF;font-weight:700">← Back to all homes</a></p>
+</div>
+<script>
+const views={
+"homes-for-sale":{title:"Homes for sale",desc:"Browse every active for-sale listing. Filter by price, beds, and open houses.",tag:"For sale"},
+"new-construction":{title:"New construction",desc:"Brand-new builds and developer communities with warranties and modern finishes.",tag:"New"},
+"foreclosures":{title:"Foreclosures & below-market",desc:"Bank-owned, auction and distressed homes — check title and inspection first.",tag:"For sale"},
+"coming-soon":{title:"Coming soon",desc:"Sneak-peek listings hitting the market in the next 14 days.",tag:"New"},
+"fsbo":{title:"For sale by owner",desc:"Deal directly with owners — no listing agent commission.",tag:"For sale"},
+"recent-sales":{title:"Recently sold",desc:"See what homes actually sold for near you in the last 90 days.",tag:"Sold"},
+"open-houses":{title:"Open houses",desc:"Tour in person this weekend — no appointment needed for these homes.",tag:"Open house"},
+"all-homes":{title:"All homes",desc:"Everything in one place: for sale, for rent, new and sold.",tag:""},
+"guide":{title:"Home Buying Guide",desc:"Step 1: Check BuyAbility → Step 2: Get pre-qualified → Step 3: Tour → Offer → Close.",tag:""},
+"foreclosure-center":{title:"Foreclosure Center",desc:"How foreclosures work, risks, financing rules and auction timelines.",tag:""},
+"app":{title:"UrbanNest Real Estate App",desc:"Tour homes from your couch. Search 'UrbanNest' in the App Store or Google Play.",tag:""},
+"down-payment":{title:"Down Payment Assistance",desc:"20% on $450k = $90,000. Programs in Texas can cover 3-5% for first-time buyers.",tag:""}
+};
+const imgs=["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop","https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop","https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&auto=format&fit=crop","https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80&auto=format&fit=crop","https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=80&auto=format&fit=crop","https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=80&auto=format&fit=crop"];
+const q=new URLSearchParams(location.search);const v=q.get("view")||"homes-for-sale";const d=views[v]||views["homes-for-sale"];
+document.getElementById("title").textContent=d.title;document.getElementById("desc").textContent=d.desc;
+document.getElementById("grid").innerHTML=imgs.map((s,i)=>`<div class="mini"><img src="${s}" alt=""><div><strong>$${(425000+i*68000).toLocaleString()}</strong><br><span style="color:#666">${3+(i%3)} bds · ${2+(i%2)} ba · ${(1800+i*220).toLocaleString()} sqft</span><br><small>${d.title} · Austin, TX #${i+1}</small></div></div>`).join("");
+</script>
+</body>
+</html>

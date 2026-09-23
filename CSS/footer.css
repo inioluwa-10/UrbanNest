@@ -1,0 +1,5 @@
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);background:#fff}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:36px 24px}
+.footer-col h4{margin-bottom:12px}.footer-col a{display:block;color:var(--muted);margin-bottom:8px;font-size:14px}.footer-col a:hover{color:var(--blue)}
+.footer-bottom{border-top:1px solid var(--line);padding:18px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}

@@ -1,0 +1,14 @@
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+
+# Local tooling
+node_modules/
+.vscode/
+.idea/
+
+# Dev-only diagnostic scripts (not used by the site)
+asset/js/_check_ids.js
+asset/js/_check_social.js

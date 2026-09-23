@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell Your Home | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>.hero{background:#3B1F0B;color:#fff;padding:56px 24px;text-align:center}.body{max-width:900px;margin:0 auto;padding:32px 24px}.card{background:#fff;border:1px solid #E0E1E7;border-radius:14px;padding:22px;margin-top:18px}.topbar{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #eee}.topbar a{font-weight:700;color:#006AFF}.row{display:flex;gap:8px}.row input{flex:1;padding:12px;border:1px solid #ddd;border-radius:8px}button{background:#006AFF;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer}</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← Home</a><nav style="display:flex;gap:14px"><a href="buy.html">Buy</a><a href="rent.html">Rent</a><a href="sell.html">Sell</a><a href="agents.html">Agents</a></nav></div>
+<section class="hero"><h1 id="title">Sell your home</h1><p>Free NestEstimate™ · Partner agents · 4.8★ from 120k sellers</p></section>
+<div class="body">
+<div id="desc" class="card"></div>
+<div class="card"><h3>What's your home worth?</h3><p style="color:#666">Enter address for instant estimate.</p><div class="row"><input id="addr" placeholder="123 Main St, Austin TX"><button onclick="go()">Estimate</button></div><p id="out" style="margin-top:12px;font-weight:700"></p></div>
+<div class="card"><h3>Seller's guide</h3><ol><li>Prep & repairs (top ROI: paint, landscaping, kitchen refresh)</li><li>Price with NestEstimate + agent CMA</li><li>List, market, showings & open houses</li><li>Offers, negotiation, inspection, close in ~30-45 days</li></ol></div>
+<p><a href="../index.html#sell" style="color:#006AFF;font-weight:700">← Back to Sell section</a></p>
+</div>
+<script>
+const m={"sell":{t:"Sell your home",d:"List with a 4.8★ partner agent — median 12 days on market in Austin."},"value":{t:"See your home value",d:"NestEstimate™ uses recent sales within 1 mile + tax records + upgrades."},"guide":{t:"Seller's guide",d:"Full timeline, fees (5-6% commission + closing), and checklists."},"agent":{t:"Find a seller's agent",d:"Compare top seller agents by sales, ratings and fees."},"worth":{t:"What's your home worth?",d:"Same as NestEstimate — free, no signup required for a range."},"improve":{t:"Home improvement",d:"Top ROI: garage door (193%), stone veneer (153%), minor kitchen (86%)."},"app":{t:"Real estate app",d:"Track your home value and sale from your phone."}};
+const v=new URLSearchParams(location.search).get("view")||"sell";const o=m[v]||m.sell;
+document.getElementById("title").textContent=o.t;document.getElementById("desc").textContent=o.d;
+function go(){const a=document.getElementById("addr").value.trim();const base=480000+(a.length*7321)%220000;document.getElementById("out").textContent=a?`NestEstimate™ for “${a}”: $${base.toLocaleString()} · +4.2% YoY`:"Enter an address first.";}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* =========================================================
+   UrbanNest — master stylesheet
+   Loads the split CSS files in cascade order.
+   Order matters: later files override earlier ones.
+   ========================================================= */
+@import url("base.css");        /* reset, design tokens, typography */
+@import url("header.css");      /* nav, logo, dropdowns, user menu, mobile menu */
+@import url("hero.css");        /* hero background, headline, search card */
+@import url("sections.css");    /* reco, listings, buyability, trio, app banner */
+@import url("footer.css");      /* footer */
+@import url("components.css");  /* modal, sign-in/up forms, toast */
+@import url("responsive.css");  /* shared overrides + 1100/760/480 breakpoints */
+@import url("features.css");    /* price alerts, lifestyle match, quiz */

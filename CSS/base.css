@@ -1,0 +1,24 @@
+/* ============ Base: reset, design tokens, typography ============ */
+*{margin:0;
+    padding:0;
+    box-sizing:border-box}
+:root{
+    --blue:#006AFF;
+    --blue-dark:#0059d6;
+    --ink:#2A2A33;
+    --muted:#5A5B6B;
+    --line:#E0E1E7;
+    --bg:#F9F9FB;
+    --card:#fff;
+    --radius:12px}
+body{font-family:Inter,Arial,Helvetica,sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.5}
+a{
+    text-decoration:none;
+    color:inherit}
+.container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rentals | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>.page-hero{background:#0B3D2E;color:#fff;padding:56px 24px;text-align:center}.page-hero h1{font-size:40px}.page-body{max-width:1100px;margin:0 auto;padding:32px 24px}.grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}.mini{background:#fff;border:1px solid #E0E1E7;border-radius:12px;overflow:hidden}.mini img{width:100%;height:170px;object-fit:cover}.mini div{padding:12px 14px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #E0E1E7}.topbar a{font-weight:700;color:#006AFF}@media(max-width:800px){.grid2{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← UrbanNest Home</a><nav style="display:flex;gap:16px"><a href="buy.html">Buy</a><a href="rent.html">Rent</a><a href="sell.html">Sell</a><a href="mortgage.html">Home Loans</a><a href="agents.html">Agents</a></nav></div>
+<section class="page-hero"><h1 id="title">Rentals</h1><p>2.4M verified rentals · Apartments, houses & buildings</p></section>
+<div class="page-body"><div id="desc" style="background:#EAF7EF;padding:16px 18px;border-radius:12px"></div><div class="grid2" id="grid"></div>
+<p style="margin-top:24px"><a href="../index.html#rent" style="color:#006AFF;font-weight:700">← Back to renting section</a></p></div>
+<script>
+const views={"apartments":{t:"Apartments for rent",d:"1-bed from $1,400 · 2-bed from $2,100 in Austin. Pet-friendly filters, 3D tours."},"houses":{t:"Houses for rent",d:"Single-family rentals with yards — 3bd from $2,450/mo, no shared walls."},"all":{t:"All rental listings",d:"Every apartment, house and condo for rent in one feed."},"buildings":{t:"Rental buildings",d:"Professionally managed buildings with amenities: gym, pool, package lockers."},"afford":{t:"What can you afford?",d:"Rule: rent ≤ 30% of gross income. $75k salary ≈ $1,875/mo budget."},"credit":{t:"Build your credit",d:"Report on-time rent payments to all 3 bureaus and grow your score."},"applications":{t:"Your applications",d:"Sign in to track applications, messages and tour invites. (Demo page)"},"insurance":{t:"Renters insurance",d:"From $15/mo — covers theft, fire and liability. Quote in 2 minutes."},"tours":{t:"Manage your tours",d:"Upcoming tours, reschedule links and agent contacts live here. (Demo)"},"vouchers":{t:"Housing voucher programs",d:"HCV / Section 8 accepted listings near Austin. Income limits apply."},"pay-rent":{t:"Pay your rent",d:"Autopay, bank or card. Demo checkout — no charge."},"learn":{t:"Renting guide",d:"Tour checklist, lease red flags, deposits and renter rights in Texas."}};
+const q=new URLSearchParams(location.search);const v=q.get("view")||"all";const o=views[v]||views.all;
+document.getElementById("title").textContent=o.t;document.getElementById("desc").textContent=o.d;
+const imgs=["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=80","https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=700&q=80","https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80","https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=700&q=80","https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=700&q=80","https://images.unsplash.com/photo-1554995207-c18c203602cb?w=700&q=80"];
+document.getElementById("grid").innerHTML=imgs.map((s,i)=>`<div class="mini"><img src="${s}"><div><strong>$${(1400+i*320).toLocaleString()}/mo</strong><br><span style="color:#666">${1+(i%3)} bds · ${1+(i%2)} ba</span><br><small>${o.t} · Austin, TX</small></div></div>`).join("");
+</script>
+</body>
+</html>
