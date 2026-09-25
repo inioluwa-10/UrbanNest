@@ -66,3 +66,35 @@
   .reco-actions .btn-primary,.reco-actions .btn-outline{width:100%}
   .stage-row{grid-template-columns:1fr}
 }
+
+/* ============ Return-to-top: progress ring + live % ============ */
+.to-top{
+  position:fixed;right:22px;bottom:22px;z-index:600;
+  width:56px;height:56px;padding:0;border:none;border-radius:50%;
+  background:#fff;box-shadow:0 8px 24px rgba(17,24,39,.18);
+  display:grid;place-items:center;cursor:pointer;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.92);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s,box-shadow .15s;
+}
+.to-top.show,.to-top.hold{opacity:1;visibility:visible;transform:none}
+.to-top:hover{box-shadow:0 12px 28px rgba(17,24,39,.26)}
+.to-top:focus-visible{outline:3px solid var(--blue,#006AFF);outline-offset:3px}
+.to-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.to-top-ring circle{fill:none;stroke-width:4;stroke-linecap:round}
+.to-top-ring .track{stroke:#e6eaf2}
+.to-top-ring .bar{stroke:var(--blue,#006AFF);transition:stroke-dashoffset .1s linear}
+.to-top-face{display:grid;place-items:center;gap:1px;line-height:1}
+.to-top-house{width:15px;height:15px;fill:var(--blue-dark,#0a3d91)}
+.to-top-pct{font-size:9.5px;font-weight:800;color:#6b7280;letter-spacing:.02em;min-width:26px;text-align:center}
+.to-top.launch .to-top-face{animation:toTopLift .7s cubic-bezier(.22,.7,.3,1)}
+.to-top.launch .to-top-pct{color:var(--blue,#006AFF)}
+@keyframes toTopLift{
+  0%{transform:translateY(0);opacity:1}
+  35%{transform:translateY(-9px);opacity:.15}
+  60%{transform:translateY(6px);opacity:0}
+  100%{transform:translateY(0);opacity:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .to-top{transition:none}
+  .to-top.launch .to-top-face{animation:none}
+}

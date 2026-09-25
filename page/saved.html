@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Homes | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>
+.topbar{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #eee}
+.topbar a{font-weight:700;color:#006AFF}
+.body{max-width:1000px;margin:0 auto;padding:32px 24px}
+.hero{background:#0B0B45;color:#fff;padding:56px 24px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px}
+.card{background:#fff;border:1px solid #E0E1E7;border-radius:12px;overflow:hidden;cursor:pointer;transition:.15s}
+.card:hover{box-shadow:0 10px 30px rgba(0,0,0,.12);transform:translateY(-2px)}
+.card-img{position:relative;height:210px;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.fav{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+.fav.loved{color:#e11d48}
+.fav.locked{color:#9aa3b2;opacity:.75;cursor:not-allowed}
+.fav.locked:hover,.fav.locked:focus-visible{color:#6b7280;opacity:1}
+.card-body{padding:14px 16px}
+.price{font-size:22px;font-weight:800}
+.specs{font-size:14px;color:#333;margin:4px 0}
+.addr{font-size:14px;color:#5A5B6B}
+.empty-state{text-align:center;padding:60px 20px;color:#5A5B6B}
+.empty-state h3{font-size:22px;margin-bottom:8px}
+.empty-state p{margin-bottom:16px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><a href="../index.html">← Home</a><nav style="display:flex;gap:14px"><a href="buy.html">Buy</a><a href="sell.html">Sell</a><a href="agents.html">Agents</a><a href="saved.html">Saved</a></nav></div>
+<section class="hero"><h1>Saved Homes</h1><p id="subtitle">Your favourited listings in one place</p></section>
+<div class="body">
+<div id="desc" class="card"></div>
+<div class="grid" id="savedGrid"></div>
+<p id="emptyMsg" class="card empty-state" hidden>
+  <h3>No saved homes yet</h3>
+  <p>Heart a home to save it here for later.</p>
+  <a href="../index.html">← Browse homes</a>
+</p>
+<p id="signinNote" class="card auth-note" hidden>Sign in to save and view your favourite homes.</p>
+</div>
+<script>
+/* Listings data — same source as the home page */
+const listings=[
+  {id:1, price:685000, beds:4, baths:3, sqft:2480, addr:"2412 Barton Hills Dr, Austin, TX", tag:"For sale", type:"sale", isNew:false, img:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop"},
+  {id:2, price:3200, beds:3, baths:2, sqft:1780, addr:"4501 Duval St, Austin, TX", tag:"For rent", type:"rent", isNew:true, img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop"},
+  {id:3, price:529000, beds:3, baths:2, sqft:1925, addr:"1208 E 12th St, Austin, TX", tag:"New", type:"new", isNew:true, img:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&auto=format&fit=crop"},
+  {id:4, price:899000, beds:5, baths:4, sqft:3420, addr:"7 Enchanted Oaks, West Lake Hills, TX", tag:"For sale", type:"sale", isNew:false, img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80&auto=format&fit=crop"},
+  {id:5, price:2450, beds:2, baths:2, sqft:1240, addr:"900 S 1st St #210, Austin, TX", tag:"For rent", type:"rent", isNew:false, img:"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=80&auto=format&fit=crop"},
+  {id:6, price:775000, beds:4, baths:3, sqft:2650, addr:"3103 Cherry Creek Dr, Austin, TX", tag:"Open house", type:"sale", isNew:true, img:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=80&auto=format&fit=crop"}
+];
+const fmt=n=>"$"+n.toLocaleString();
+const getSession=()=>JSON.parse(sessionStorage.getItem("un_session")||localStorage.getItem("un_session")||"null");
+const favs=new Set(JSON.parse(localStorage.getItem("un_favs")||"[]"));
+const $=s=>document.querySelector(s);
+
+const signedIn=!!getSession();
+const grid=$("#savedGrid");
+const emptyMsg=$("#emptyMsg");
+const signinNote=$("#signinNote");
+
+function paint(){
+  const saved=listings.filter(l=>favs.has(l.id));
+  $("#subtitle").textContent=`${saved.length} home${saved.length===1?"":"s"} saved`;
+
+  if(!signedIn){
+    grid.innerHTML="";
+    emptyMsg.hidden=true;
+    signinNote.hidden=false;
+    return;
+  }
+  signinNote.hidden=true;
+
+  if(!saved.length){
+    grid.innerHTML="";
+    emptyMsg.hidden=false;
+    return;
+  }
+  emptyMsg.hidden=true;
+  signinNote.hidden=true;
+
+  grid.innerHTML=saved.map(l=>`
+    <article class="card" data-id="${l.id}">
+      <div class="card-img">
+        <img loading="lazy" src="${l.img}" alt="${l.addr}">
+        <span class="badge">${l.tag}</span>
+        <button class="fav loved" data-fav="${l.id}" title="Remove from saved">♥</button>
+      </div>
+      <div class="card-body">
+        <div class="price">${fmt(l.price)}${l.type==="rent"?" /mo":""}</div>
+        <div class="specs"><b>${l.beds}</b> bds · <b>${l.baths}</b> ba · <b>${l.sqft.toLocaleString()}</b> sqft</div>
+        <div class="addr">${l.addr}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
+grid.addEventListener("click",e=>{
+  const btn=e.target.closest("[data-fav]");
+  if(!btn) return;
+  const id=+btn.dataset.fav;
+  if(!getSession()){
+    sessionStorage.setItem("un_next",location.href);
+    location.href="../index.html#signin";
+    return;
+  }
+  favs.delete(id);
+  localStorage.setItem("un_favs",JSON.stringify([...favs]));
+  paint();
+});
+
+paint();
+</script>
+<script src="../asset/js/to-top.js"></script>
+<script src="../asset/js/chat.js"></script>
+</body>
+</html>

@@ -151,7 +151,7 @@ document.addEventListener("click", e=>{
     } else {
       favs.add(id); watch[id] = listing.price;      // baseline price for change detection
       localStorage.setItem("un_watch", JSON.stringify(watch));
-      toast(`Saved ♥ — we'll alert you if ${listing.addr.split(",")[0]} changes price`);
+      toast(`Saved ♥ — we'll watch ${listing.addr.split(",")[0]} for a price change`);
     }
     localStorage.setItem("un_favs", JSON.stringify([...favs])); render();
     return; }
@@ -209,6 +209,16 @@ document.addEventListener("click", e=>{
     if(!user) openModal("signin");
     else toast(`You're signed in as ${user.email}`);
   }
+  else if(action==="contact-agents"){
+    e.preventDefault(); closeMenus();
+    if(!getSession()){                 // contacting an agent requires sign-in
+      sessionStorage.setItem("un_want_contact","1");
+      openModal("signin");
+      toast("Sign in to contact an agent");
+      return;
+    }
+    toast("Agent match: 3 top agents in Austin contacted");
+  }
   else if(action==="toast"){
     e.preventDefault(); closeMenus();
   }
@@ -258,47 +268,128 @@ $("#valueBtn").addEventListener("click", estimateValue);
 /* Auth — two separate forms: sign in vs create account */
 const modal = $("#signModal");
 let mode = "signin";
+let activeSocialProvider = "Google";
+
+/* This is a static demo, so these are representative local accounts rather
+   than a real Google/Apple token exchange. The chooser keeps the selection step
+   visible and makes it clear which account will be used. */
+const socialAccounts = {
+  Google: [
+    {name:"Alex Morgan", email:"alex.morgan@example.com", initials:"AM"},
+    {name:"UrbanNest demo", email:"demo@urbannest.com", initials:"UD"}
+  ],
+  Apple: [
+    {name:"Alex Morgan", email:"alex.morgan@icloud.example", initials:"AM"},
+    {name:"UrbanNest demo", email:"demo@urbannest.com", initials:"UD"}
+  ]
+};
+
 function openModal(m){
   setMode(m || "signin");
   modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
-  setTimeout(()=>$(mode==="signin" ? "#signinEmail" : "#signupName")?.focus(),50);
+  const focusSelector = mode==="social" ? "#socialAccountList button" : mode==="signup" ? "#signupName" : "#signinEmail";
+  setTimeout(()=>$(focusSelector)?.focus(),50);
 }
-function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); }
+function closeModal(){
+  modal.classList.remove("open"); modal.setAttribute("aria-hidden","true");
+  /* Dismissing the modal abandons any pending sign-in gate (e.g. "sign in to
+     contact an agent"), so stale redirects must not fire on a later sign-in. */
+  sessionStorage.removeItem("un_next");
+  sessionStorage.removeItem("un_want_contact");
+}
 function setMode(m){
   mode = m;
+  const isSocial = m === "social";
   $("#tabSignin").classList.toggle("active", m==="signin");
   $("#tabSignup").classList.toggle("active", m==="signup");
   $("#signinView").hidden = m!=="signin";
   $("#signupView").hidden = m!=="signup";
+  $("#authSocialArea").hidden = isSocial;
+  $("#socialView").hidden = !isSocial;
   $("#signinErr").hidden = true;
   $("#signupErr").hidden = true;
 }
+function renderSocialAccounts(){
+  const list = $("#socialAccountList");
+  list.replaceChildren();
+  (socialAccounts[activeSocialProvider] || []).forEach(account => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "account-choice";
+    button.setAttribute("aria-label", `Continue as ${account.name}, ${account.email}`);
+    button.innerHTML = `
+      <span class="account-avatar" aria-hidden="true">${account.initials}</span>
+      <span class="account-copy"><strong>${account.name}</strong><small>${account.email}</small></span>
+      <span class="account-arrow" aria-hidden="true">→</span>`;
+    button.addEventListener("click", () => {
+      saveSession({name:account.name, email:account.email, provider:activeSocialProvider, demo:true});
+      if(!afterLogin()){ closeModal(); toast(`Signed in with ${activeSocialProvider} as ${account.email}`); }
+    });
+    list.appendChild(button);
+  });
+}
+function openSocialChooser(provider){
+  activeSocialProvider = socialAccounts[provider] ? provider : "Google";
+  $("#socialProvider").textContent = activeSocialProvider;
+  const icon = $("#socialProviderIcon");
+  icon.className = `social-provider-icon ${activeSocialProvider.toLowerCase()}`;
+  icon.textContent = activeSocialProvider === "Google" ? "G" : "●";
+  $("#socialPrompt").textContent = `Select the ${activeSocialProvider} email account you want to use.`;
+  renderSocialAccounts();
+  setMode("social");
+  setTimeout(()=>$("#socialAccountList button")?.focus(),50);
+}
 $("#tabSignin").addEventListener("click", ()=>setMode("signin"));
 $("#tabSignup").addEventListener("click", ()=>setMode("signup"));
+$("#socialBack").addEventListener("click", ()=>setMode("signin"));
 function bindPwToggle(btnId, inputId){
-  document.getElementById(btnId)?.addEventListener("click", ()=>{
-    const p = document.getElementById(inputId); p.type = p.type==="password" ? "text" : "password";
-    document.getElementById(btnId).textContent = p.type==="password" ? "Show" : "Hide";
+  const btn = document.getElementById(btnId);
+  const p = document.getElementById(inputId);
+  if(!btn || !p) return;
+  const syncState = () => {
+    const showing = p.type === "text";
+    const label = showing ? "Hide password" : "Show password";
+    btn.classList.toggle("is-visible", showing);
+    btn.setAttribute("aria-pressed", String(showing));
+    btn.setAttribute("aria-label", label);
+    btn.title = label;
+  };
+  btn.addEventListener("click", ()=>{
+    p.type = p.type==="password" ? "text" : "password";
+    syncState();
   });
+  syncState();
 }
 bindPwToggle("pwToggleIn","signinPass");
 bindPwToggle("pwToggleUp","signupPass");
 $("#modalClose").addEventListener("click", closeModal);
 modal.addEventListener("click", e=>{ if(e.target===modal) closeModal(); });
 $("#forgotLink")?.addEventListener("click", e=>{ e.preventDefault(); toast("Reset link sent — check your email (demo)"); });
-$$("[data-social]").forEach(b=>b.addEventListener("click", ()=>{
-  const name = "Demo User", email = "demo@urbannest.com";
-  saveSession({name, email, provider:b.dataset.social});
-  closeModal(); toast(`Signed in with ${b.dataset.social} as ${email}`);
-}));
+$$("[data-social]").forEach(b=>b.addEventListener("click", ()=>openSocialChooser(b.dataset.social)));
 
 const getUsers = () => JSON.parse(localStorage.getItem("un_users")||"{}");
-const getSession = () => JSON.parse(localStorage.getItem("un_session")||"null");
+/* "Keep me signed in" decides where the session lives:
+   checked   → localStorage: stays signed in after the browser is closed,
+   unchecked → sessionStorage: ends when the browser/window closes. */
+const getSession = () => JSON.parse(sessionStorage.getItem("un_session") || localStorage.getItem("un_session") || "null");
 function saveSession(user){
   const remember = $("#authRemember")?.checked !== false;
-  localStorage.setItem("un_session", JSON.stringify(user));
-  if(!remember) sessionStorage.setItem("un_session_tmp","1");
+  localStorage.removeItem("un_session");
+  sessionStorage.removeItem("un_session");
+  (remember ? localStorage : sessionStorage).setItem("un_session", JSON.stringify(user));
   paintUser();
+}
+/* Finishes a sign-in that was started from a gate: sends the user back to the
+   page that demanded sign-in (e.g. the agents page) or completes a pending
+   "contact an agent" action. Returns true when it handled the finish. */
+function afterLogin(){
+  const next = sessionStorage.getItem("un_next");
+  const contact = sessionStorage.getItem("un_want_contact") === "1";
+  sessionStorage.removeItem("un_next");
+  sessionStorage.removeItem("un_want_contact");
+  if(next){ location.replace(next); return true; }
+  if(contact){ closeModal(); toast("Signed in — Agent match: 3 top agents in Austin contacted"); return true; }
+  return false;
 }
 function paintUser(){
   const user = getSession();
@@ -316,6 +407,7 @@ function paintUser(){
     area.classList.remove("logged");
     btn.textContent = "Sign in"; btn.classList.remove("signed");
   }
+  paintBell();
   paintProfileSummary();
   render();
 }
@@ -335,7 +427,11 @@ $("#signinForm").addEventListener("submit", e=>{
     return fail("No account found for this email — click Create account to register.");
   }
   $("#signinPass").value = "";
-  closeModal(); toast("Signed in — recommendations unlocked.");
+  if(afterLogin()) return;
+  closeModal();
+  toast($("#authRemember")?.checked === false
+    ? "Signed in for this browser session only."
+    : "Signed in — recommendations unlocked.");
 });
 $("#signupForm").addEventListener("submit", e=>{
   e.preventDefault();
@@ -349,13 +445,14 @@ $("#signupForm").addEventListener("submit", e=>{
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Enter a valid email address.");
   if(pass.length < 8) return fail("Create a password with at least 8 characters.");
   if(pass !== pass2) return fail("Passwords do not match.");
-  if(!$("#signupTerms").checked) return fail("Please accept the Terms & Privacy to continue.");
+  if(!$("#signupTerms").checked) return fail("Please accept the Terms & Privacy Policy to continue.");
   const users = getUsers();
   if(users[email]) return fail("Account already exists — switch to Sign in.");
   users[email] = {name, pass};
   localStorage.setItem("un_users", JSON.stringify(users));
   saveSession({name, email});
   $("#signupPass").value = ""; $("#signupPass2").value = "";
+  if(afterLogin()) return;
   closeModal(); toast(`Welcome to UrbanNest, ${name.split(" ")[0]}! Account created.`);
 });
 $("#sign").addEventListener("click", ()=>{
@@ -366,6 +463,9 @@ $("#sign").addEventListener("click", ()=>{
 document.addEventListener("click", e=>{ if(!e.target.closest(".user-area")) $("#userMenu")?.classList.remove("open"); });
 $("#signOut").addEventListener("click", ()=>{
   localStorage.removeItem("un_session");
+  sessionStorage.removeItem("un_session");
+  sessionStorage.removeItem("un_next");
+  sessionStorage.removeItem("un_want_contact");
   $("#userMenu").classList.remove("open");
   paintUser(); toast("Signed out. See you soon.");
 });
@@ -395,11 +495,24 @@ function addAlert(l, oldPrice){
 }
 function unreadCount(){ return alerts.filter(a=>!a.read).length; }
 function paintBell(){
-  const n = unreadCount();
+  const signedIn = !!getSession();
+  const wrap = document.querySelector(".bell-wrap");
+  const bell = $("#bell");
+  const panel = $("#alertPanel");
   const badge = $("#bellCount");
+  wrap.hidden = !signedIn;
+  if(!signedIn){
+    bell.disabled = true;
+    panel.classList.remove("open");
+    badge.hidden = true;
+    bell.classList.remove("has-unread");
+    return;
+  }
+  bell.disabled = false;
+  const n = unreadCount();
   badge.textContent = n;
   badge.hidden = n === 0;
-  $("#bell").classList.toggle("has-unread", n > 0);
+  bell.classList.toggle("has-unread", n > 0);
 }
 function timeAgo(t){
   const m = Math.round((Date.now()-t)/60000);
@@ -411,6 +524,7 @@ function timeAgo(t){
 }
 function renderAlerts(){
   const box = $("#alertList");
+  if(!getSession()) return;
   if(!alerts.length){
     box.innerHTML = `<p class="muted" style="padding:14px">No price changes yet. Save a home (♥) and we'll watch its price for you.</p>`;
     return;
@@ -425,46 +539,34 @@ function renderAlerts(){
       </div>
     </div>`).join("");
 }
-function notifyUser(msg){
-  toast(msg);
-  // Browser notification (if permission already granted — we never prompt unprompted)
-  if("Notification" in window && Notification.permission === "granted"){
-    try{ new Notification("UrbanNest price alert", { body: msg }); }catch(e){}
-  }
-}
-/* The "market": periodically nudge listing prices (saved homes always get watched,
-   so you get an alert; others just show the ▲/▼ badge).
-   In a real app this runs server-side on MLS/feed data. */
-function marketTick(){
-  const watched = listings.filter(l => watch[l.id] != null);
-  // Prefer drifting a saved home (75%), otherwise move any listing
-  const pool = (watched.length && Math.random() < 0.75) ? watched : listings;
-  const l = pool[Math.floor(Math.random() * pool.length)];
+/* Price data should come from a real listing feed. This static demo does not
+   invent market changes on a timer, so price alerts only appear when a feed
+   explicitly supplies a new price. */
+function applyPriceUpdate(listingId, nextPrice){
+  const l = listings.find(item => item.id === Number(listingId));
+  if(!l || !Number.isFinite(Number(nextPrice))) return;
+  const next = Math.round(Number(nextPrice));
   const old = l.price;
-  const swing = (Math.random() < 0.55 ? -1 : 1) * (0.01 + Math.random() * 0.04); // ±1–5%
-  let next = l.type === "rent"
-    ? Math.round(l.price * (1 + swing) / 25) * 25
-    : Math.round(l.price * (1 + swing) / 500) * 500;
   if(next === old) return;
-  l.price = next;   // watch baseline stays at the price you saved, so the card keeps
-                    // showing cumulative "since you saved" change
-  localStorage.setItem("un_prices", JSON.stringify(Object.fromEntries(listings.map(x=>[x.id,x.price]))));
+  l.price = next;
+  localStorage.setItem("un_prices", JSON.stringify(Object.fromEntries(listings.map(item => [item.id, item.price]))));
   render();
-  if(watch[l.id] == null) return;        // not saved → price badge only, no alert
-  const a = addAlert(l, old);
+  if(!getSession() || watch[l.id] == null) return; // no notifications while signed out
+  const alert = addAlert(l, old);
   paintBell();
   if($("#alertPanel").classList.contains("open")) renderAlerts();
-  const short = l.addr.split(",")[0];
-  notifyUser(`${a.up?"Price up":"Price drop"}: ${short} — ${fmt(old)} → ${fmt(next)} (${a.up?"+":"−"}${a.pct}%)`);
+  return alert;
 }
 $("#bell").addEventListener("click", e=>{
   e.stopPropagation();
+  if(!getSession()) return;
   const p = $("#alertPanel");
   const open = p.classList.toggle("open");
   if(open){ renderAlerts(); }
 });
 document.addEventListener("click", e=>{ if(!e.target.closest("#alertPanel") && !e.target.closest("#bell")) $("#alertPanel").classList.remove("open"); });
 $("#alertList").addEventListener("click", e=>{
+  if(!getSession()) return;
   const item = e.target.closest("[data-alert]");
   if(!item) return;
   const a = alerts.find(x=>x.id===item.dataset.alert);
@@ -474,6 +576,7 @@ $("#alertList").addEventListener("click", e=>{
 });
 $("#alertClear").addEventListener("click", e=>{
   e.stopPropagation();
+  if(!getSession()) return;
   alerts = []; localStorage.setItem("un_alerts","[]"); paintBell(); renderAlerts();
 });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") $("#alertPanel").classList.remove("open"); });
@@ -569,9 +672,81 @@ $("#quizReset").addEventListener("click", ()=>{
   toast("Lifestyle Match cleared");
 });
 
-paintBell();
 paintProfileSummary();
-setTimeout(marketTick, 8000);     // first market check shortly after load
-setInterval(marketTick, 25000);   // then keep watching while the tab is open
-
+// Listing prices are static until an external feed calls applyPriceUpdate().
 paintUser();
+
+/* Arriving from a sign-in gate (e.g. "Sign in to contact an agent" on the
+   agents page) opens the sign-in modal straight away — or, if a session is
+   already active, goes straight back to the page that asked for sign-in. */
+if(new URLSearchParams(location.search).get("signin")==="1" || location.hash==="#signin"){
+  const next = sessionStorage.getItem("un_next");
+  if(!getSession()){
+    openModal("signin");
+    if(next) toast("Sign in to contact an agent");
+  } else if(next){
+    sessionStorage.removeItem("un_next");
+    location.replace(next);
+  }
+}
+
+/* ============================================================
+   FEATURE 3 — AI Chat: Ask questions about a listing
+   ============================================================ */
+const chatData=listings.map(l=>({...l}));
+const chatFAB=document.createElement("button");
+chatFAB.className="chat-fab";
+chatFAB.type="button";
+chatFAB.title="Ask about a listing";
+chatFAB.setAttribute("aria-label","Open listing question chat");
+chatFAB.innerHTML="💬";
+document.body.appendChild(chatFAB);
+
+const chatModal=document.createElement("div");
+chatModal.className="chat-modal";
+chatModal.setAttribute("aria-hidden","true");
+chatModal.innerHTML='<div class="chat-head"><h3>💬 Listing Questions</h3><button class="chat-close" type="button" aria-label="Close chat">✕</button></div><div class="chat-body" id="chatBody"></div><div class="chat-input-wrap"><input type="text" id="chatInput" placeholder="Ask about a listing…" aria-label="Chat input"><button type="button" id="chatSend" aria-label="Send message">➤</button></div>';
+document.body.appendChild(chatModal);
+
+const chatBody=$("#chatBody");
+const chatInput=$("#chatInput");
+const chatClose=$(".chat-close");
+
+function openChat(){chatModal.classList.add("open");chatModal.setAttribute("aria-hidden","false");if(!chatBody.children.length){addBotMsg("Hi! Ask me anything about a listing — price, bedrooms, pets, commute, and more. Try a quick question below 👇");}setTimeout(()=>chatInput?.focus(),50);}
+function closeChat(){chatModal.classList.remove("open");chatModal.setAttribute("aria-hidden","true");}
+function addBotMsg(html){const d=document.createElement("div");d.className="chat-msg bot";d.innerHTML=html;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;}
+function addUserMsg(text){const d=document.createElement("div");d.className="chat-msg user";d.textContent=text;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;}
+
+function respond(question){
+  const q=question.toLowerCase().trim();
+  const target=chatData.find(l=>q.includes(l.addr.split(",")[0].toLowerCase().slice(0,4))||q.includes(l.tag.toLowerCase()))||chatData[0];
+  if(/hello|hi\b|hey\b/.test(q)){addBotMsg("Hey! I can answer questions about any UrbanNest listing. Try: <b>\"What's the price?\"</b>, <b>\"Does it have a pool?\"</b>, or pick a quick question below!");showQuickBtns();return;}
+  if(/\bprice\b|\bcost\b|\bhow much\b/.test(q)){addBotMsg(`The listing is priced at <b>${fmt(target.price)}${target.type==="rent"?"/mo":""}</b>. ${target.tag} in ${target.addr}.`);}
+  else if(/\bbedroom\b|\bbeds?\b|\bbd\b/.test(q)){addBotMsg(`This home has <b>${target.beds} bedroom${target.beds>1?"s":""}</b> and <b>${target.baths} bath${target.baths>1?"s":""}</b>, with <b>${target.sqft.toLocaleString()} sqft</b>.`);}
+  else if(/\bsqft\b|\bsquare feet|\bsize\b/.test(q)){addBotMsg(`The size is <b>${target.sqft.toLocaleString()} sqft</b> with ${target.beds} beds and ${target.baths} baths.`);}
+  else if(/\bpet\b|\bpets?\b|\banimal\b/.test(q)){addBotMsg(target.pets?"🐾 Yes, this home is <b>pet-friendly</b>!":"Sorry, this home does <b>not</b> allow pets.");}
+  else if(/\bpool\b/.test(q)){addBotMsg(target.pool?"🏊 Yes, there's a <b>pool</b>!":"No pool here, but there's a "+(target.yard>0?target.yard+" ft yard":"no yard")+".");}
+  else if(/\bgarage\b|\bcarport\b/.test(q)){addBotMsg(target.garage?"🚗 Yes, this home has a <b>garage</b>!":"No garage listed, check the specs for details.");}
+  else if(/\byard\b|\bbackyard\b|\bgarden\b/.test(q)){addBotMsg(target.yard>0?`🌳 Yes! There's a <b>${target.yard} ft yard</b>.`:"No yard listed for this property.");}
+  else if(/\bschool\b|\bschools?\b|\bkid\b|\bchild\b/.test(q)){addBotMsg(target.schools>=8?`🎓 Great schools! This area scores <b>${target.schools}/10</b> for top schools.`:`Schools in this area score <b>${target.schools}/10</b>.`);}
+  else if(/\bwalk\b|\bwalkable\b|\bwalkability\b/.test(q)){addBotMsg(`Walk score: <b>${target.walk}/100</b>. ${target.walk>=70?"Very walkable!":target.walk>=40?"Somewhat walkable.":"Car is recommended."}`);}
+  else if(/\bcommute\b|\bdrive\b|\bdrive time\b|\btraffic\b/.test(q)){addBotMsg(`Commute score: <b>${target.commute}/10</b>. ${target.commute>=7?"Easy commute!":"Moderate commute."}`);}
+  else if(/\bview\b|\bviews?\b/.test(q)){addBotMsg(target.view?"🌄 Yes, this home offers <b>views</b>!":"No views listed for this property.");}
+  else if(/\bmodern\b|\bnew\b|\brenovat\b/.test(q)){addBotMsg(target.modern?"✨ Yes, this home has a <b>modern</b> design!":"Not listed as modern — may need updating.");}
+  else if(/\bvibe\b|\barea\b|\bneighborhood\b/.test(q)){addBotMsg(`This property is in a <b>${target.vibe}</b> neighborhood.`);}
+  else if(/\baddress\b|\blocation\b|\bwhere\b/.test(q)){addBotMsg(`This listing is at <b>${target.addr}</b>.`);}
+  else{const feats=[];if(target.pets)feats.push("🐾 pets allowed");if(target.pool)feats.push("🏊 pool");if(target.garage)feats.push("🚗 garage");if(target.yard>0)feats.push("🌳 "+target.yard+"ft yard");if(target.view)feats.push("🌄 views");if(target.modern)feats.push("✨ modern");addBotMsg(`About <b>${target.addr}</b>: ${target.beds} bd · ${target.baths} ba · ${target.sqft.toLocaleString()} sqft · ${fmt(target.price)}${target.type==="rent"?"/mo":""}. Features: ${feats.length?feats.join(", "):"standard amenities"}. Try a more specific question!`);}
+  showQuickBtns();
+}
+
+let quickShown=false;
+function showQuickBtns(){const existing=chatBody.querySelector(".chat-quick");if(existing)existing.remove();const qs=["What's the price?","Pets allowed?","Any pool?","Commute score?"];const wrap=document.createElement("div");wrap.className="chat-quick";qs.forEach(s=>{const b=document.createElement("button");b.type="button";b.textContent=s;b.addEventListener("click",()=>{chatInput.value=s;handleChat();});wrap.appendChild(b)});chatBody.appendChild(wrap);chatBody.scrollTop=chatBody.scrollHeight;quickShown=true;}
+
+function handleChat(){const text=chatInput.value.trim();if(!text)return;addUserMsg(text);chatInput.value="";setTimeout(()=>respond(text),400);}
+
+chatFAB.addEventListener("click",()=>{if(chatModal.classList.contains("open"))closeChat();else openChat();});
+chatClose.addEventListener("click",closeChat);
+chatModal.addEventListener("click",e=>{if(e.target===chatModal)closeChat();});
+chatInput.addEventListener("keydown",e=>{if(e.key==="Enter")handleChat();});
+$("#chatSend")?.addEventListener("click",handleChat);
+if(new URLSearchParams(location.search).get("signin")==="1"||location.hash==="#signin"){const next=sessionStorage.getItem("un_next");if(!getSession()){openModal("signin");if(next)toast("Sign in to contact an agent");}else if(next){sessionStorage.removeItem("un_next");location.replace(next);}}

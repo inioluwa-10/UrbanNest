@@ -1,7 +1,8 @@
 /* ============ Base: reset, design tokens, typography ============ */
 *{margin:0;
-    padding:0;
-    box-sizing:border-box}
+     padding:0;
+     box-sizing:border-box}
+sup{font-size:0.65em;vertical-align:super;line-height:0}
 :root{
     --blue:#006AFF;
     --blue-dark:#0059d6;
@@ -12,13 +13,13 @@
     --card:#fff;
     --radius:12px}
 body{font-family:Inter,Arial,Helvetica,sans-serif;
-    color:var(--ink);
-    background:#fff;
-    line-height:1.5}
+     color:var(--ink);
+     background:#fff;
+     line-height:1.5}
 a{
-    text-decoration:none;
-    color:inherit}
+     text-decoration:none;
+     color:inherit}
 .container{
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 24px}
+     max-width:1200px;
+     margin:0 auto;
+     padding:0 24px}

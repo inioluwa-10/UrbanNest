@@ -34,5 +34,6 @@ const q=new URLSearchParams(location.search);const v=q.get("view")||"homes-for-s
 document.getElementById("title").textContent=d.title;document.getElementById("desc").textContent=d.desc;
 document.getElementById("grid").innerHTML=imgs.map((s,i)=>`<div class="mini"><img src="${s}" alt=""><div><strong>$${(425000+i*68000).toLocaleString()}</strong><br><span style="color:#666">${3+(i%3)} bds · ${2+(i%2)} ba · ${(1800+i*220).toLocaleString()} sqft</span><br><small>${d.title} · Austin, TX #${i+1}</small></div></div>`).join("");
 </script>
+<script src="../asset/js/to-top.js"></script>
 </body>
 </html>

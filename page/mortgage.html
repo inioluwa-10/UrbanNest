@@ -21,5 +21,6 @@ const v=new URLSearchParams(location.search).get("view")||"discover";const o=m[v
 document.getElementById("title").textContent=o.t;document.getElementById("desc").textContent=o.d;
 function calc(){const P=+document.getElementById("p").value||0,dp=+document.getElementById("d").value||0,rate=+document.getElementById("r").value||0,yrs=+document.getElementById("y").value||30;const pr=P*(1-dp/100),r=rate/100/12,n=yrs*12;const pay=r>0?pr*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):pr/n;document.getElementById("out").textContent="$"+Math.round(pay).toLocaleString()+"/mo";}calc();
 </script>
+<script src="../asset/js/to-top.js"></script>
 </body>
 </html>

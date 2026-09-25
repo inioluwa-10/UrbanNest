@@ -74,3 +74,7 @@ img{max-width:100%}
 .row{flex-direction:column !important}
 .calc-card{padding:14px}
 }
+.chat-modal{width:calc(100vw - 48px);right:24px;bottom:90px}
+.chat-fab{width:48px;height:48px;font-size:20px;bottom:16px;right:16px}
+@media(min-width:481px){.chat-modal{width:380px;right:24px;bottom:88px}}
+@media(min-width:761px){.chat-modal{width:400px;right:32px;bottom:96px}}

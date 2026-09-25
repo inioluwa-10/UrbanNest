@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About UrbanNest | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>
+  .page-hero{background:#0B0B45;color:#fff;padding:58px 24px;text-align:center}
+  .page-hero .kicker{color:#AFC5FF;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .page-hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:10px 0}
+  .page-hero p{max-width:680px;margin:0 auto;color:#D5D8F2}
+  .body{max-width:1050px;margin:0 auto;padding:32px 24px 56px}
+  .card{background:#fff;border:1px solid #E0E1E7;border-radius:14px;padding:24px;margin-top:18px}
+  .intro-card{background:#F3F6FF;border-color:#D9E3FF;margin-top:0}
+  .intro-card p{font-size:18px;line-height:1.6}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .stat{background:#fff;border:1px solid #E0E1E7;border-radius:12px;padding:18px}
+  .stat strong{display:block;color:#006AFF;font-size:28px;line-height:1.1}
+  .stat span{display:block;color:#5A5B6B;font-size:13px;margin-top:5px}
+  .content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+  .info-card{background:#fff;border:1px solid #E0E1E7;border-radius:12px;padding:20px}
+  .info-card h3{font-size:18px;margin-bottom:8px}
+  .info-card p{color:#5A5B6B;font-size:14px}
+  .info-card a{display:inline-block;color:#0059d6;font-weight:700;margin-top:12px}
+  .action-card{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .action-card p{max-width:620px;color:#5A5B6B;margin-top:4px}
+  .action-card a{display:inline-block;background:#006AFF;color:#fff;border-radius:8px;padding:11px 18px;font-weight:700}
+  .action-card a:hover{background:#0059d6}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid #E0E1E7;background:#fff}
+  .topbar>a{color:#006AFF;font-weight:700}
+  .topbar nav{display:flex;gap:16px;flex-wrap:wrap}
+  .topbar nav a{color:#111;font-size:14px}
+  .topbar nav a:hover{color:#006AFF}
+  .note{font-size:12px;color:#5A5B6B;margin-top:12px}
+  @media(max-width:800px){.content-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.page-hero{padding:42px 16px}.body{padding:24px 16px}.topbar{padding:12px 16px}.stats-grid{grid-template-columns:1fr}.stat strong{font-size:24px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="../index.html">← UrbanNest Home</a>
+  <nav aria-label="Primary">
+    <a href="buy.html">Buy</a>
+    <a href="rent.html">Rent</a>
+    <a href="sell.html">Sell</a>
+    <a href="mortgage.html">Home Loans</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <p class="kicker" id="category">UrbanNest / About</p>
+  <h1 id="title">A clearer way home</h1>
+  <p id="subtitle">Making every move feel a little easier.</p>
+</section>
+
+<main class="body">
+  <section class="card intro-card" aria-label="Overview">
+    <p id="intro"></p>
+  </section>
+
+  <section class="stats-grid" id="stats" aria-label="UrbanNest facts"></section>
+  <section class="content-grid" id="content" aria-label="More information"></section>
+
+  <section class="card action-card">
+    <div>
+      <strong id="ctaTitle">Keep exploring UrbanNest</strong>
+      <p id="ctaText">Find a home, understand your options, and plan the next step with confidence.</p>
+    </div>
+    <a id="ctaLink" href="../index.html">Explore UrbanNest</a>
+  </section>
+  <p class="note">UrbanNest is a demonstration project. Content and contact links on this page are illustrative.</p>
+</main>
+
+<script>
+  const pages = {
+    about: {
+      category: "UrbanNest / About",
+      title: "A clearer way home",
+      subtitle: "Making every move feel a little easier.",
+      intro: "UrbanNest brings homes, advice, and the people who help you make a move together. From the first search to the keys in your hand, our goal is simple: give people the information and tools to move with confidence.",
+      stats: [["2012", "Founded"], ["2.1M", "Customer reviews"], ["50+", "Markets"]],
+      cards: [
+        {title: "Our mission", body: "Make the housing journey more transparent, useful, and human — whether you are buying, renting, selling, or managing a property."},
+        {title: "How we work", body: "We pair local expertise with thoughtful technology, so recommendations are useful without getting in the way."},
+        {title: "Our promise", body: "Every home deserves a careful presentation, every question deserves a clear answer, and every customer deserves support."}
+      ],
+      ctaTitle: "See what is possible", ctaText: "Browse homes, rental options, and tools designed around the way you actually move.", ctaLabel: "Explore homes", ctaHref: "../index.html#listings"
+    },
+    careers: {
+      category: "UrbanNest / Careers",
+      title: "Build what is next",
+      subtitle: "Help people find their place in the world.",
+      intro: "We are building a more helpful housing experience for buyers, renters, sellers, and the professionals who serve them. Join a kind, curious team that cares about the details and the people behind them.",
+      stats: [["12", "Open roles"], ["5", "Team values"], ["1", "Shared mission"]],
+      cards: [
+        {title: "Product & design", body: "Turn complex housing questions into clear, useful tools for millions of people."},
+        {title: "Customer experience", body: "Help customers feel informed and supported at every step of a major life decision."},
+        {title: "Market operations", body: "Work with local partners and operators to make every market more transparent."}
+      ],
+      ctaTitle: "See an open role", ctaText: "We are always interested in thoughtful people who care about making a difference.", ctaLabel: "Contact recruiting", ctaHref: "mailto:careers@urbannest.example"
+    },
+    press: {
+      category: "UrbanNest / Press",
+      title: "The UrbanNest story",
+      subtitle: "A clearer view of housing, from the people who know it best.",
+      intro: "UrbanNest is a place to discover homes, understand the market, and connect with trusted local experts. Our press room includes company facts, product notes, and resources for members of the media.",
+      stats: [["2012", "Founded"], ["24/7", "Media desk"], ["2.1M", "Reviews"]],
+      cards: [
+        {title: "Press inquiries", body: "For interviews, comments, and company information, contact the UrbanNest communications team."},
+        {title: "Brand resources", body: "Find approved logos, product descriptions, and a concise company fact sheet for editorial use."},
+        {title: "In the news", body: "Read updates about our products, partnerships, and the people improving the housing experience."}
+      ],
+      ctaTitle: "Need a source?", ctaText: "Our media desk can help with background, data, and product details.", ctaLabel: "Email the press team", ctaHref: "mailto:press@urbannest.example"
+    },
+    investors: {
+      category: "UrbanNest / Investors",
+      title: "Building the future of housing",
+      subtitle: "Technology, trust, and durable consumer brands.",
+      intro: "We believe the housing market can be more useful to everyone. UrbanNest brings together trusted marketplace brands, data-driven tools, and services that help people make better decisions over the life of a home.",
+      stats: [["50+", "Markets"], ["12M+", "Monthly shoppers"], ["1", "Long-term view"]],
+      cards: [
+        {title: "Our strategy", body: "Grow a trusted marketplace while investing in products that make complex decisions easier for customers and professionals."},
+        {title: "Our model", body: "A diversified ecosystem of consumer, agent, lender, and rental-management experiences."},
+        {title: "Investor relations", body: "Find financial highlights, governance information, and the latest company updates."}
+      ],
+      ctaTitle: "Investor relations", ctaText: "For shareholder and financial information, connect with our investor relations team.", ctaLabel: "Contact investor relations", ctaHref: "mailto:investors@urbannest.example"
+    }
+  };
+
+  const requested = new URLSearchParams(location.search).get("view");
+  const page = pages[requested] || pages.about;
+  document.title = `${page.title} | UrbanNest`;
+  document.getElementById("category").textContent = page.category;
+  document.getElementById("title").textContent = page.title;
+  document.getElementById("subtitle").textContent = page.subtitle;
+  document.getElementById("intro").textContent = page.intro;
+  document.getElementById("ctaTitle").textContent = page.ctaTitle;
+  document.getElementById("ctaText").textContent = page.ctaText;
+  const cta = document.getElementById("ctaLink");
+  cta.textContent = page.ctaLabel;
+  cta.href = page.ctaHref;
+
+  const stats = document.getElementById("stats");
+  page.stats.forEach(([value, label]) => {
+    const card = document.createElement("div");
+    card.className = "stat";
+    card.innerHTML = `<strong>${value}</strong><span>${label}</span>`;
+    stats.appendChild(card);
+  });
+
+  const content = document.getElementById("content");
+  page.cards.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "info-card";
+    card.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`;
+    content.appendChild(card);
+  });
+</script>
+<script src="../asset/js/to-top.js"></script>
+</body>
+</html>

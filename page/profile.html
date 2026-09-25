@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | UrbanNest</title>
+<link rel="stylesheet" href="../CSS/style.css">
+<style>
+  .page-hero{background:#0B0B45;color:#fff;padding:58px 24px;text-align:center}
+  .page-hero .kicker{color:#AFC5FF;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .page-hero h1{font-size:clamp(32px,5vw,50px);line-height:1.1;margin:10px 0}
+  .page-hero p{max-width:680px;margin:0 auto;color:#D5D8F2}
+  .body{max-width:1050px;margin:0 auto;padding:32px 24px 56px}
+
+  /* Profile layout */
+  .profile-card{background:#fff;border:1px solid #E0E1E7;border-radius:14px;padding:28px;margin-top:18px}
+  .profile-header{display:flex;gap:18px;align-items:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #eee}
+  .profile-avatar{width:72px;height:72px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:28px;flex-shrink:0}
+  .profile-name{font-size:22px;font-weight:800;color:#111}
+  .profile-email{font-size:14px;color:var(--muted);margin-top:2px}
+  .profile-member{font-size:12px;color:var(--blue-dark);font-weight:600;margin-top:4px}
+
+  .profile-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px}
+  .stat{background:#f7f9ff;border:1px solid #E0E1E7;border-radius:12px;padding:18px;text-align:center}
+  .stat strong{display:block;color:#006AFF;font-size:28px;line-height:1.1}
+  .stat span{display:block;color:#5A5B6B;font-size:13px;margin-top:5px}
+
+  .profile-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:18px}
+  .detail-card{background:#fff;border:1px solid #E0E1E7;border-radius:12px;padding:20px}
+  .detail-card h3{font-size:16px;margin-bottom:10px;color:#111}
+  .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+  .detail-row:last-child{border-bottom:none}
+  .detail-row span:first-child{color:var(--muted)}
+  .detail-row span:last-child{font-weight:600;color:#111}
+
+  .empty-state{text-align:center;padding:60px 20px;color:#5A5B6B}
+  .empty-state h3{font-size:22px;margin-bottom:8px}
+  .empty-state p{margin-bottom:16px}
+
+  .signin-note{text-align:center;padding:60px 20px;color:#5A5B6B}
+  .signin-note h3{font-size:22px;margin-bottom:8px}
+  .signin-note p{margin-bottom:16px}
+
+  /* Saved homes list on profile */
+  .saved-list{display:grid;gap:14px;margin-top:18px}
+  .saved-item{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid #E0E1E7;border-radius:12px;background:#fff}
+  .saved-item img{width:70px;height:50px;object-fit:cover;border-radius:8px;flex-shrink:0}
+  .saved-item-info{flex:1;min-width:0}
+  .saved-item-info strong{font-size:15px;color:#111}
+  .saved-item-info p{font-size:13px;color:var(--muted);margin:2px 0}
+  .saved-item-price{font-size:18px;font-weight:800;color:#006AFF;white-space:nowrap}
+
+  @media(max-width:800px){
+    .profile-stats{grid-template-columns:repeat(2,1fr)}
+    .profile-details{grid-template-columns:1fr}
+    .profile-header{flex-direction:column;text-align:center}
+  }
+  @media(max-width:560px){
+    .profile-stats{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../index.html">← UrbanNest Home</a>
+  <nav aria-label="Primary">
+    <a href="../page/buy.html">Buy</a>
+    <a href="../page/rent.html">Rent</a>
+    <a href="../page/sell.html">Sell</a>
+    <a href="../page/mortgage.html">Home Loans</a>
+    <a href="../page/agents.html">Find an agent</a>
+    <a href="../page/manage-rentals.html">Manage rentals</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <p class="kicker">UrbanNest / Profile</p>
+  <h1 id="profileTitle">My Profile</h1>
+  <p id="profileSubtitle">View and manage your account details</p>
+</section>
+
+<main class="body">
+  <!-- Signed-out state -->
+  <div id="signinNote" class="signin-note" hidden>
+    <h3>Sign in to view your profile</h3>
+    <p>Create an account or sign in to see your personal information, saved homes, and activity.</p>
+    <a href="../index.html#signin" class="btn-primary" style="display:inline-block;background:#006AFF;color:#fff;border-radius:8px;padding:11px 18px;font-weight:700;text-decoration:none">Sign in</a>
+  </div>
+
+  <!-- Signed-in profile -->
+  <div id="profileContent">
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">U</div>
+        <div>
+          <div class="profile-name" id="profileName">User</div>
+          <div class="profile-email" id="profileEmail">user@mail.com</div>
+          <div class="profile-member" id="profileMember">UrbanNest member</div>
+        </div>
+      </div>
+
+      <div class="profile-stats" id="profileStats">
+        <div class="stat"><strong id="statSaved">0</strong><span>Saved homes</span></div>
+        <div class="stat"><strong id="statAlerts">0</strong><span>Price alerts</span></div>
+        <div class="stat"><strong id="statMatch">—</strong><span>Lifestyle match</span></div>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="detail-card">
+        <h3>Account</h3>
+        <div class="detail-row"><span>Name</span><span id="detailName">—</span></div>
+        <div class="detail-row"><span>Email</span><span id="detailEmail">—</span></div>
+        <div class="detail-row"><span>Member since</span><span id="detailMember">—</span></div>
+      </div>
+      <div class="detail-card">
+        <h3>Preferences</h3>
+        <div class="detail-row"><span>Lifestyle match</span><span id="detailPref">—</span></div>
+        <div class="detail-row"><span>Bedrooms</span><span id="detailBeds">—</span></div>
+        <div class="detail-row"><span>Budget</span><span id="detailBudget">—</span></div>
+        <div class="detail-row"><span>Stage</span><span id="detailStage">—</span></div>
+      </div>
+    </div>
+
+    <!-- Saved homes section -->
+    <div class="profile-card" style="margin-top:18px">
+      <h3 style="font-size:18px;margin-bottom:14px">Saved Homes</h3>
+      <div id="savedList" class="saved-list"></div>
+      <p id="noSaved" class="empty-state" hidden><h3>No saved homes yet</h3><p>Heart a home on the listings page to save it here.</p></p>
+    </div>
+  </div>
+</main>
+
+<script>
+/* Listings data — same source as the home page */
+const listings=[
+  {id:1, price:685000, beds:4, baths:3, sqft:2480, addr:"2412 Barton Hills Dr, Austin, TX", tag:"For sale", type:"sale", isNew:false, img:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop"},
+  {id:2, price:3200, beds:3, baths:2, sqft:1780, addr:"4501 Duval St, Austin, TX", tag:"For rent", type:"rent", isNew:true, img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop"},
+  {id:3, price:529000, beds:3, baths:2, sqft:1925, addr:"1208 E 12th St, Austin, TX", tag:"New", type:"new", isNew:true, img:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&auto=format&fit=crop"},
+  {id:4, price:899000, beds:5, baths:4, sqft:3420, addr:"7 Enchanted Oaks, West Lake Hills, TX", tag:"For sale", type:"sale", isNew:false, img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80&auto=format&fit=crop"},
+  {id:5, price:2450, beds:2, baths:2, sqft:1240, addr:"900 S 1st St #210, Austin, TX", tag:"For rent", type:"rent", isNew:false, img:"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=80&auto=format&fit=crop"},
+  {id:6, price:775000, beds:4, baths:3, sqft:2650, addr:"3103 Cherry Creek Dr, Austin, TX", tag:"Open house", type:"sale", isNew:true, img:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=80&auto=format&fit=crop"}
+];
+
+const fmt = n => "$" + n.toLocaleString();
+const getSession = () => JSON.parse(sessionStorage.getItem("un_session") || localStorage.getItem("un_session") || "null");
+const favs = new Set(JSON.parse(localStorage.getItem("un_favs") || "[]"));
+const alerts = JSON.parse(localStorage.getItem("un_alerts") || "[]");
+const profile = JSON.parse(localStorage.getItem("un_profile") || "null");
+const users = JSON.parse(localStorage.getItem("un_users") || "{}");
+const $ = s => document.querySelector(s);
+
+const signedIn = !!getSession();
+const user = getSession();
+
+/* ===== Sign-in gate ===== */
+if(!signedIn){
+  $("#signinNote").hidden = false;
+  $("#profileContent").hidden = true;
+}else{
+  $("#signinNote").hidden = true;
+
+  /* Fill profile header */
+  const initials = user.name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  $("#profileAvatar").textContent = initials;
+  $("#profileName").textContent = user.name;
+  $("#profileEmail").textContent = user.email;
+  $("#profileMember").textContent = "UrbanNest member";
+
+  /* Account details */
+  $("#detailName").textContent = user.name;
+  $("#detailEmail").textContent = user.email;
+  $("#detailMember").textContent = "Since " + new Date().toLocaleDateString("en-US",{year:"numeric",month:"long"});
+
+  /* Stats */
+  $("#statSaved").textContent = favs.size;
+  $("#statAlerts").textContent = alerts.length;
+  if(profile){
+    $("#statMatch").textContent = "Active";
+    $("#detailPref").textContent = "Completed";
+    $("#detailBeds").textContent = profile.beds + " bd";
+    $("#detailBudget").textContent = fmt(profile.budget);
+    $("#detailStage").textContent = profile.stage.charAt(0).toUpperCase() + profile.stage.slice(1);
+  }else{
+    $("#statMatch").textContent = "—";
+    $("#detailPref").textContent = "Not set";
+    $("#detailBeds").textContent = "—";
+    $("#detailBudget").textContent = "—";
+    $("#detailStage").textContent = "—";
+  }
+
+  /* Saved homes list */
+  const savedListings = listings.filter(l => favs.has(l.id));
+  const savedContainer = $("#savedList");
+  const noSaved = $("#noSaved");
+
+  if(savedListings.length === 0){
+    savedContainer.innerHTML = "";
+    noSaved.hidden = false;
+  }else{
+    noSaved.hidden = true;
+    savedContainer.innerHTML = savedListings.map(l => `
+      <div class="saved-item">
+        <img src="${l.img}" alt="${l.addr}" loading="lazy">
+        <div class="saved-item-info">
+          <strong>${l.addr}</strong>
+          <p>${l.beds} bd · ${l.baths} ba · ${l.sqft.toLocaleString()} sqft</p>
+        </div>
+        <div class="saved-item-price">${fmt(l.price)}${l.type==="rent"?"/mo":""}</div>
+      </div>
+    `).join("");
+  }
+}
+
+/* Update page title based on sign-in state */
+if(signedIn && user){
+  document.title = `${user.name}'s Profile | UrbanNest`;
+  $("#profileTitle").textContent = `${user.name.split(" ")[0]}'s Profile`;
+  $("#profileSubtitle").textContent = `Welcome back — here's your overview`;
+}
+</script>
+<script src="../asset/js/to-top.js"></script>
+</body>
+</html>
